@@ -29,15 +29,21 @@ CREATE DATABASE IF NOT EXISTS bankdb;
 
 USE bankdb;
 
-CREATE TABLE IF NOT EXISTS accounts (
-    account_no BIGINT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) UNIQUE NOT NULL,
-    full_name VARCHAR(100) NOT NULL,
-    password VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    phone VARCHAR(10) NOT NULL,
-    balance DECIMAL(15, 2) DEFAULT 0.00
-);
+CREATE TABLE accounts (
+    account_no BIGINT NOT NULL AUTO_INCREMENT,
+    username   VARCHAR(255) NOT NULL,
+    full_name  VARCHAR(255) NOT NULL,
+    password   VARCHAR(255) NOT NULL,
+    email      VARCHAR(100) NOT NULL,
+    phone      VARCHAR(10)  NOT NULL,
+    balance    DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+
+    PRIMARY KEY (account_no),
+    UNIQUE KEY uk_username (username),
+    UNIQUE KEY uk_email (email),
+    UNIQUE KEY uk_phone (phone)
+) AUTO_INCREMENT = 10000000;
+
 ```
 
 Update the database credentials in `src/main/resources/application.properties` if needed:
@@ -161,4 +167,5 @@ Bank Management System/
 - The new REST API is in `src/main/java/com/bank/`
 - CORS is enabled for `http://localhost:3000`
 - Passwords are stored in plain text (consider hashing for production)
+
 
